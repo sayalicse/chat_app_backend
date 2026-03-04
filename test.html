@@ -11,7 +11,9 @@
 <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 
 <script>
-  const socket = io("http://localhost:7000");
+  const socket = io("https://chatappbackend-production-e695.up.railway.app", {
+  transports: ["websocket"]
+});
 
   let userId;
 
