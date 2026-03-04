@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Socket Test</title>
+</head>
+<body>
+
+<h2>Socket Chat Test</h2>
+<button onclick="sendMessage()">Send Message</button>
+
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+<script>
+  const socket = io("http://localhost:7000");
+
+  let userId;
+
+  socket.on("connect", () => {
+    console.log("Connected:", socket.id);
+
+    userId = prompt("Enter User ID (1 or 2)");
+
+    socket.emit("join", userId);
+
+    console.log("Joined room:", userId);
+  });
+
+  socket.on("receive_message", (data) => {
+    console.log("Message received:", data);
+  });
+
+  function sendMessage() {
+    socket.emit("send_message", {
+      senderId: userId,
+      receiverId: userId === "1" ? "2" : "1",
+      message: "Hello from " + userId
+    });
+  }
+</script>
+
+</body>
+</html>
