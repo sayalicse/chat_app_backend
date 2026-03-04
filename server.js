@@ -1,9 +1,10 @@
+require("dotenv").config();
 const express = require('express');
 const http = require("http");
 const pool = require('./src/config/db');
 const { Server } = require("socket.io");
 const authRoutes=require('./src/routes/authRoutes');
-require("dotenv").config();
+
 
 const app = express();
 app.use(express.json());
@@ -42,6 +43,8 @@ io.on("connection", (socket) => {
     console.log("User disconnected");
   });
 }); 
-server.listen(7000, () => {
-  console.log("Server running on port 9000");
+const PORT = process.env.PORT || 7000;
+
+server.listen(PORT, () => {
+  console.log("Server running on port", PORT);
 });
